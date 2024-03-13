@@ -1,51 +1,41 @@
 import random
 
-
-class army:
-    def __init__(self, num, team):
-        self.num = num
-        self.team = team
-
-    def follow_hero(self, hero):
-        print(f"Воин {self.num} следует за героем {hero.team}")
-
-
 class Hero:
-    def __init__(self, team):
+    def __init__(self, number, team, name):
         self.team = team
-        self.level = 1
+        self.number = number
+        self.name = name
+    def level_up(self):
+        print(f"Hero {self.name} поднял уровегь!")
 
-    def increase_level(self):
-        self.level += 1
+class squad:
+    def __init__(self, number, team):
+        self.team = team
+        self.number = number
+    def follow_hero(self, hero):
+        print(f"squad{self.number} следует за героем")
 
-        print(f"Герой команды {self.team} повысил уровень")
+hero1 = Hero(1, "команда А", "Герой1")
+hero2 = Hero(2, "команда В", "Герой2")
 
-
-team1_hero = Hero(1)
-team2_hero = Hero(2)
-
-team1_army = []
-team2_army = []
+squad_команда_А = []
+squad_команда_В = []
 
 for i in range(100):
-    team = random.choice([1, 2])
-
-    soldier = army(i + 1, team)
-
-    if team == 1:
-        team1_army.append(soldier)
+    team = random.choice(["команда А", "команда В"])
+    squad_obj = squad(i + 1, team)
+    if team == "команда А":
+        squad_команда_А.append(squad_obj)
     else:
-        team2_army.append(soldier)
+        squad_команда_В.append(squad_obj)
 
-print(f"Количество солдат в команде 1: {len(team1_army)}")
-print(f"Количество солдат в команде 2: {len(team2_army)}")
+print("Количество солдат в команде А:", len(squad_команда_А))
+print("Количество солдат в команде В:", len(squad_команда_В))
 
-if len(team1_army) > len(team2_army):
-    team1_hero.increase_level()
-    print(f"Герой команды 1 повысился до уровня {team1_hero.level}")
+if len(squad_команда_А) > len(squad_команда_В):
+    hero1.level_up()
 else:
-    team2_hero.increase_level()
-    print(f"Герой команды 2 повысился до уровня {team2_hero.level}")
+    hero2.level_up()
 
-follow = random.choice(team1_army)
-follow.follow_hero(team1_hero)
+hero1.squad_to_follow = squad_команда_А[0]
+hero1.squad_to_follow.follow_hero(hero1)
